@@ -19,3 +19,6 @@ Bei Unterbrechung wird sicher gestellt, dass Motor letzte Bewegung vollendet und
 Es ist sicher gestellt, dass bei völliger Programmunterbrechung und bei Beenden des Programms GPIO sauber ausgeschalten wird.
 
 Beim Zeitfaktor über 10 wurde durch Tests ermittelt, dass 0,01 s Strom zum Anfahren für Einzelschritte ein dennoch hohes Drehmoment sicher stellt. Der Rest des geforderten Zeitfaktors wird stromlos abgewartet (geringer Stromverbrauch und sicher stellen, dass Motor kalt bleibt). Es sind dadurch beliebig lange Zeitfaktoren möglich. Für Uhren oder ähnliches mit geringem Drehmomentbedarf kann MaximumPulseWidth von 10 auf 6 oder 4 reduziert werden (weniger nicht empfehlenswert, weil sonst Anfahren im Motor nicht mehr gewährleistet ist)
+
+Verzeichnis RPi nur auf anderen Computern als dem Raspberry Pi zu verwenden (NICHT auf den Raspberry kopieren!).
+Dies dient dazu GPIO zu emulieren, damit man auch mit GPIO Code Programme auf anderen Computern als einem Raspberry entwickeln und auch laufen lassen kann. Man bekommt hiermit eben keine Fehlermeldungen von wegen nicht vorhandenem GPIO    :)
