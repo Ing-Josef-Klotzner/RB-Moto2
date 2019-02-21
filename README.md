@@ -22,3 +22,5 @@ Beim Zeitfaktor über 10 wurde durch Tests ermittelt, dass 0,01 s Strom zum Anfa
 
 Verzeichnis RPi nur auf anderen Computern als dem Raspberry Pi zu verwenden (NICHT auf den Raspberry kopieren!).
 Dies dient dazu GPIO zu emulieren, damit man auch mit GPIO Code Programme auf anderen Computern als einem Raspberry entwickeln und auch laufen lassen kann. Man bekommt hiermit eben keine Fehlermeldungen von wegen nicht vorhandenem GPIO   :)
+
+Das Board läßt sich übrigens direkt auf den Raspberry (Pin1 auf Pin1) aufstecken, was in der Beschreibung nirgendwo explizit erwähnt ist.
