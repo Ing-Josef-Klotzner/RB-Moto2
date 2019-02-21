@@ -10,11 +10,11 @@ def main ():
     x2 = False
     umdr = 5
     print ("Motor 1 macht", umdr, "Umdrehung(en) gegen Uhrzeigersinn, Zeitfaktor", fak, "x2", x2)
-    retour (umdr * 512, fak, x2)
+    retourM1 (umdr * 512, fak, x2)
 
     umdr = 5
     print ("Motor 1 macht", umdr, "Umdrehung(en) im Uhrzeigersinn, Zeitfaktor", fak, "x2", x2)
-    vor (umdr * 512, fak, x2)
+    vorM1 (umdr * 512, fak, x2)
     
     # Ende Hauptprogramm
 
