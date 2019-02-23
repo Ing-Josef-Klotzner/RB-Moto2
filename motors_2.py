@@ -95,7 +95,7 @@ def Step7 (Puls, Wait, Motor): StepH (D [Motor], Puls, Wait)
 def Step8 (Puls, Wait, Motor): StepV (D [Motor], A [Motor], Puls, Wait)
 
 #  - Motor 1
-# eine ganze Umdrehung (= 512 Teilungen)
+# eine ganze Umdrehung der Achse = 512 Teilungen
 # im Uhrzeigersinn
 #                 Zeitfaktor 1 ist Maximalgeschwindigkeit
 def vorM1 (Teilungen, Faktor = 1, x2 = False): go (Teilungen, Faktor, 0, 0, x2)
@@ -129,6 +129,50 @@ def go (Teilungen, Faktor, m, d, x2):
                 print ("Unterbrechung in Funktion", text," in", func, "in Teilung", i)
                 input ("Fortsetzen mit ENTER")
                 print ("Es wird fortgesetzt ...")
+
+#  - Motor 1
+# Einzelschritte (4096 Schritte für eine Achsendrehung)
+# im Uhrzeigersinn
+def vorStepM1 (Teilungsliste, Pause = 1, Faktor = 1): goS (Teilungsliste, Pause, Faktor, 0, 0)
+# gegen Uhrzeigersinn
+def retourStepM1 (Teilungsliste, Pause = 1, Faktor = 1): goS (Teilungsliste, Pause, Faktor, 0, 1)
+#  - Motor 2
+# eine ganze Umdrehung (= 512 Teilungen)
+# im Uhrzeigersinn
+def vorStepM2 (Teilungsliste, Pause = 1, Faktor = 1): goS (Teilungsliste, Pause, Faktor, 1, 0)
+# gegen Uhrzeigersinn
+def retourStepM2 (Teilungsliste, Pause = 1, Faktor = 1): goS (Teilungsliste, Pause, Faktor, 1, 1)
+def goS (Teilungsliste, Pause, Faktor, m, d):
+    f = abs (Faktor)
+    if f < 1: f = 1
+    funcs = [Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8]
+    (p, w) = PulseWait (f)
+    if m == 0: Mtxt = "M1"
+    else: Mtxt = "M2"
+    if d == 1:
+        text = "retour" + Mtxt
+        funcs = funcs [::-1]
+    else:
+        text = "vor" + Mtxt
+    Schritte_gesamt = 0
+    for i in Teilungsliste:
+        for step in range (Schritte_gesamt + 1, Schritte_gesamt + i + 1, 8):
+            for step8, func in zip (range (8), funcs):
+                try:
+                    func (p, w, m)
+                    if step + step8 == Schritte_gesamt + i:
+                        print ("Pause zwischen Teilungsschritten von", Pause, "Sekunden", end = ", ")
+                        print ("bei step", step + step8)
+                        sleep (Pause)
+                except KeyboardInterrupt:
+                    func (p, w, m)
+                    print ("Unterbrechung in Funktion", text,\
+                        "in", func, "in Teilschritt", step + step8)
+                    input ("Fortsetzen mit ENTER")
+                    print ("Es wird fortgesetzt ...")
+        Schritte_gesamt += i
+
+
         #p = p - 0.5 / 50
         #if p < 1.4: p = 1.4
         #print (p, end =",")
