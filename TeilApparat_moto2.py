@@ -29,8 +29,10 @@ def main ():
 #        print ("Teilungsliste", liste, "Summe", sum (liste))
     liste = Teilungsliste (Teilungen)
     print (liste)
+    # nur zu Testzwecken mehrfach aufrufbar (range (x))
     for i in range (1):
-        vorStepM2 (liste, Pause)
+        vorStepM2 (liste, Pause, 2)
+        print (i)
 
 #    for i, steps in zip (range (1, Teilungen + 1), liste):
 #        print ("Bewege Motor im Segment", i, "um", steps, "Schritte")
