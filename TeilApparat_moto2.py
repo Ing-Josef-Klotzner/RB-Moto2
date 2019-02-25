@@ -29,7 +29,7 @@ def main ():
 #        print ("Teilungsliste", liste, "Summe", sum (liste))
     liste = Teilungsliste (Teilungen)
     print (liste)
-    for i in range (30):
+    for i in range (1):
         vorStepM2 (liste, Pause)
 
 #    for i, steps in zip (range (1, Teilungen + 1), liste):
