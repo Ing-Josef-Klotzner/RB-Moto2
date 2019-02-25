@@ -143,6 +143,8 @@ def vorStepM2 (Teilungsliste, Pause = 1, Faktor = 1): goS (Teilungsliste, Pause,
 # gegen Uhrzeigersinn
 def retourStepM2 (Teilungsliste, Pause = 1, Faktor = 1): goS (Teilungsliste, Pause, Faktor, 1, 1)
 def goS (Teilungsliste, Pause, Faktor, m, d):
+    TEILUNGEN = 4096
+    ListCnt = 0
     f = abs (Faktor)
     if f < 1: f = 1
     funcs = [Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8]
@@ -155,23 +157,25 @@ def goS (Teilungsliste, Pause, Faktor, m, d):
     else:
         text = "vor" + Mtxt
     Schritte_gesamt = 0
-    for i in Teilungsliste:
-        for step in range (Schritte_gesamt + 1, Schritte_gesamt + i + 1, 8):
-            for step8, func in zip (range (8), funcs):
-                try:
-                    func (p, w, m)
-                    if step + step8 == Schritte_gesamt + i:
-                        print ("Pause zwischen Teilungsschritten von", Pause, "Sekunden", end = ", ")
-                        print ("bei step", step + step8)
-                        sleep (Pause)
-                except KeyboardInterrupt:
-                    func (p, w, m)
-                    print ("Unterbrechung in Funktion", text,\
-                        "in", func, "in Teilschritt", step + step8)
-                    input ("Fortsetzen mit ENTER")
-                    print ("Es wird fortgesetzt ...")
-        Schritte_gesamt += i
-
+    for i in range (1, TEILUNGEN + 1, 8):
+        for step8, func in zip (range (8), funcs):
+            try:
+                func (p, w, m)
+                if i + step8 == Schritte_gesamt + Teilungsliste [ListCnt] and i + step8 != TEILUNGEN:
+                    print ("Pause zwischen Teilungsschritten von", Pause, "Sekunden", end = ", ")
+                    print ("bei step", i + step8)
+                    sleep (Pause)
+                    Schritte_gesamt += Teilungsliste [ListCnt]
+                    ListCnt += 1
+            except KeyboardInterrupt:
+                func (p, w, m)
+                print ("Unterbrechung in Funktion", text,\
+                    "in", func, "in Teilschritt", i + step8)
+                if i + step8 == Schritte_gesamt + Teilungsliste [ListCnt]:
+                    Schritte_gesamt += Teilungsliste [ListCnt]
+                    ListCnt += 1
+                input ("Fortsetzen mit ENTER")
+                print ("Es wird fortgesetzt ...")
 
         #p = p - 0.5 / 50
         #if p < 1.4: p = 1.4

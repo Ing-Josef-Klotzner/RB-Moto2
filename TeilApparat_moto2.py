@@ -21,7 +21,7 @@ def main ():
     # schreibe hier Dein Hauptprogramm
 
     Teilungen = int (input ("Bitte geben Sie die Anzahl der gewünschten Teilungen ein: "))
-    Pause = float(input ("Bitte geben Sie die Pause (s) zwischen Teilschritten ein: "))
+    Pause = float (input ("Bitte geben Sie die Pause (s) zwischen Teilschritten ein: "))
     #Teilungen = 12
     #Pause = 1
 #    for i in range (1, 21):
@@ -31,8 +31,8 @@ def main ():
     print (liste)
     # nur zu Testzwecken mehrfach aufrufbar (range (x))
     for i in range (1):
-        vorStepM2 (liste, Pause, 2)
-        print (i)
+        vorStepM2 (liste, Pause, 1)
+        print ("Kreise vollendet", i + 1)
 
 #    for i, steps in zip (range (1, Teilungen + 1), liste):
 #        print ("Bewege Motor im Segment", i, "um", steps, "Schritte")
