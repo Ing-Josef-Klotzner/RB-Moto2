@@ -1,5 +1,5 @@
 # RB-Moto2
-Raspberry Pi 3 Python Modul motors2.py for "RB-Moto2" (Conrad Elektronik) with 2 step motors
+Raspberry Pi 3 Python Modul motors_2.py for "RB-Moto2" (Conrad Elektronik) with 2 step motors
 
 Programm / Python Modul für 2 Schrittmotore - Modul "RB-Moto2" (Conrad Elektronik)
 Autor: Ing. Josef Klotzner
@@ -9,7 +9,7 @@ Beschreibung:
 Das Getriebe hat 1/512
 Zusammen mit 8 Motorsteps macht das 512 x 8 = 4096 Schritte für eine Umdrehung
 
-das Programm hier kann auch als Python Modul "motor" geladen werden um die darin definierten Funktionen zu nutzen wie
+das Programm hier kann auch als Python Modul "motors_2" geladen werden um die darin definierten Funktionen zu nutzen wie
 
 motor.vorM1 (512 [, 2[, False]])
 ... macht eine Drehung des Motors 1 (512 Schritte) im Uhrzeigersinn (auf Motorachse gesehen mit Zeitfaktor 2 (= halbe Geschwindigkeit)) mit 8 Halbschritten für eine Motorumdrehung (False Parameter; True wären nur 4 Vollschritte - 40% höhere  Geschwindigkeit)
