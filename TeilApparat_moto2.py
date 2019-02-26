@@ -31,7 +31,7 @@ def main ():
     for i in range (1):
         # vorStepM2 (Teilungsliste, Pause, Zeitfaktor)
         # Pause = -1 ... Handpause (wartet auf "Enter")
-        vorStepM2 (liste, Pause, 1)
+        vorStepM2 (liste, Pause, 4)
         print ("Kreise vollendet", i + 1)
 
     # Ende Hauptprogramm
