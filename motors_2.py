@@ -130,6 +130,7 @@ def go (Teilungen, Faktor, m, d, x2):
                 input ("Fortsetzen mit ENTER")
                 print ("Es wird fortgesetzt ...")
 
+# Funktion für Teilapparat
 #  - Motor 1
 # Einzelschritte (4096 Schritte für eine Achsendrehung)
 # im Uhrzeigersinn  ...  TP ... Tastaturpause von Hand, wenn Pause = -1
@@ -187,9 +188,53 @@ def goS (Teilungsliste, Pause, Faktor, m, d):
                 input ("Fortsetzen mit ENTER")
                 print ("Es wird fortgesetzt ...")
 
-        #p = p - 0.5 / 50
-        #if p < 1.4: p = 1.4
-        #print (p, end =",")
+# Funktion für beliebig viele Einzelschritte (Feinpositionierung)
+#  - Motor 1
+# Einzelschritte (4096 Schritte für eine Achsendrehung)
+# im Uhrzeigersinn
+def vorXStepM1 (Schritte, Fakt = 1):
+    goXS (Schritte, Fakt, 0, 0)
+# gegen Uhrzeigersinn
+def retourXStepM1 (Schritte, Fakt = 1):
+    goXS (Schritte, Fakt, 0, 1)
+#  - Motor 2
+# eine ganze Umdrehung (= 512 Teilungen)
+# im Uhrzeigersinn
+def vorXStepM2 (Schritte, Fakt = 1):
+    goXS (Schritte, Fakt, 1, 0)
+# gegen Uhrzeigersinn
+def retourXStepM2 (Schritte, Fakt = 1):
+    goXS (Schritte, Fakt, 1, 1)
+def goXS (Schritte, Faktor, m, d):
+    f = abs (Faktor)
+    if f < 1: f = 1
+    funcs = [Step1, Step2, Step3, Step4, Step5, Step6, Step7, Step8]
+    (p, w) = PulseWait (f)
+    if m == 0: Mtxt = "M1"
+    else: Mtxt = "M2"
+    if d == 1:
+        text = "retourXStep" + Mtxt
+        funcs = funcs [::-1]
+    else:
+        text = "vorXStep" + Mtxt
+    Schritte_gesamt = 0
+    for i in range (1, Schritte + 1, 8):
+        for step8, func in zip (range (8), funcs):
+            try:
+                func (p, w, m)
+                if i + step8 == Schritte:
+                    print ("Position erreicht", end = ", ")
+                    print ("bei step", i + step8)
+            except KeyboardInterrupt:
+                func (p, w, m)
+                print ("Unterbrechung in Funktion", text,\
+                    "in", func, "in Teilschritt", i + step8)
+                if i + step8 == Schritte:
+                    print ("Position erreicht", end = ", ")
+                    print ("bei step", i + step8)
+                input ("Fortsetzen mit ENTER")
+                print ("Es wird fortgesetzt ...")
+
 # wird erstmalig benötigt für Feinpositionierung
 # (stop zwischen Step1 und Step8), um Motor1 anfangs
 # definiert auf Position des Step1_1 zu bringen
@@ -208,10 +253,17 @@ def main ():
     # Hauptprogramm
 
     # x2 Geschwindigkeit durch überspringen der Halbschritte
-    x2 = True
     # Geschwindigkeitsfaktor kann Fließkommazahl sein größer oder gleich 1
     fak = 1
+    x2 = False
+    # Test Feinpositionierung - es sind beliebig viele Einzelschritte möglich
+    #  -> also auch am Schluß nur Teilumdrehungen
+    steps = 10000
+    print ("Motor 1 macht", steps, "Schritte im Uhrzeigersinn, Zeitfaktor", fak, "x2", x2)
+    vorXStepM1 (10000)
+
     # Umdrehungen muss ganze Zahl sein
+    x2 = True
     umdr = 1
     print ("Motor 1 macht", umdr, "Umdrehung(en) im Uhrzeigersinn, Zeitfaktor", fak, "x2", x2)
     vorM1 (umdr * 512, fak, x2)
