@@ -11,13 +11,6 @@ def main ():
     # Wegstrecke in mm
     teilungen = 4096
     weg = float (input ("Bitte die Wegstrecke (in mm) eingeben: "))
-#    dir_ = 0
-#    decsn = dir_ == 1 or dir_ == 2
-#    while not decsn:
-#        dir_ = int (input ("Richtung angeben (RETOUR - 1 und Enter) (VOR - 2 und Enter)"))
-#        decsn = dir_ == 1 or dir_ == 2
-#        if not decsn:
-#            print ("Bitte nochmal eingeben; Richtung muss 1 oder 2 sein")
     # Abfrage für generische Lösung
     #motor = int (input ("Welcher Motor? (1 oder 2 und Enter eingeben"))
     #motor_f = motor - 1
@@ -25,14 +18,16 @@ def main ():
     motor = 0
     steigung = 0.75
     steps = round (teilungen * weg / steigung)
+    while True:
+        print ("Motor", motor + 1, "bewegt sich", weg, "mm vor (das sind", steps, "Schritte)")
+        goXS (steps, fak , motor, 0)
 
-    print ("Motor", motor + 1, "bewegt sich", weg, "mm vor (das sind", steps, "Schritte)")
-    goXS (steps, fak , motor, 0)
+        print ("Motor", motor + 1, "bewegt sich", weg, "mm retour (das sind", steps, "Schritte)")
+        goXS (steps, fak , motor, 1)
 
-    print ("Motor", motor + 1, "bewegt sich", weg, "mm retour (das sind", steps, "Schritte)")
-    goXS (steps, fak , motor, 1)
-
-    input ("Beenden mit ENTER")
+        in_ = input ("Wiederholen mit ENTER   Abbrechen mit a + Enter ")
+        if in_ == "a" or in_ == "A":
+            break
     # Ende Hauptprogramm
 
 if __name__ == "__main__":

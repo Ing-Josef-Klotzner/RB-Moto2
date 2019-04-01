@@ -134,21 +134,21 @@ def go (Teilungen, Faktor, m, d, x2):
 #  - Motor 1
 # Einzelschritte (4096 Schritte für eine Achsendrehung)
 # im Uhrzeigersinn  ...  TP ... Tastaturpause von Hand, wenn Pause = -1
-def vorStepM1 (Teilungsliste, Pause = 1, Faktor = 1):
-    goS (Teilungsliste, Pause, Faktor, 0, 0)
+def vorStepM1 (Teilungsliste, Pause = 1, Faktor = 1, gue = 1):
+    goS (Teilungsliste, Pause, Faktor, 0, 0, gue)
 # gegen Uhrzeigersinn
-def retourStepM1 (Teilungsliste, Pause = 1, Faktor = 1):
-    goS (Teilungsliste, Pause, Faktor, 0, 1)
+def retourStepM1 (Teilungsliste, Pause = 1, Faktor = 1, gue = 1):
+    goS (Teilungsliste, Pause, Faktor, 0, 1, gue)
 #  - Motor 2
 # eine ganze Umdrehung (= 512 Teilungen)
 # im Uhrzeigersinn
-def vorStepM2 (Teilungsliste, Pause = 1, Faktor = 1):
-    goS (Teilungsliste, Pause, Faktor, 1, 0)
+def vorStepM2 (Teilungsliste, Pause = 1, Faktor = 1, gue = 1):
+    goS (Teilungsliste, Pause, Faktor, 1, 0, gue)
 # gegen Uhrzeigersinn
-def retourStepM2 (Teilungsliste, Pause = 1, Faktor = 1):
-    goS (Teilungsliste, Pause, Faktor, 1, 1)
-def goS (Teilungsliste, Pause, Faktor, m, d):
-    TEILUNGEN = 4096
+def retourStepM2 (Teilungsliste, Pause = 1, Faktor = 1, gue = 1):
+    goS (Teilungsliste, Pause, Faktor, 1, 1, gue)
+def goS (Teilungsliste, Pause, Faktor, m, d, gue):
+    TEILUNGEN = round (4096 * gue)
     ListCnt = 0
     TP = False
     if Pause == -1: TP = True; Pause = 0
