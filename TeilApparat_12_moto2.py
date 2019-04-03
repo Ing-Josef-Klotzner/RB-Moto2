@@ -30,13 +30,15 @@ def main ():
     kreisschritte = 4096
     liste = Teilungsliste (Teilungen, kreisschritte, gue)
     print (liste)
-    # nur zu Testzwecken mehrfach aufrufbar (range (x))
-    for i in range (1):
+    i = 1
+    while True:
         # vorStepM2 (Teilungsliste, Pause, Zeitfaktor)
         # Pause = -1 ... Handpause (wartet auf "Enter")
         vorStepM2 (liste, Pause, 1, gue)
-        print ("Kreise vollendet", i + 1)
-
+        print ("Kreis(e) vollendet", i)
+        print ("Nochmal mit Teilung", Teilungen, "und", Pause, "Sekunden Pause? (Enter drücken)")
+        input ("Abbrechen (Strg + C drücken)")
+        i += 1
     # Ende Hauptprogramm
 
 if __name__ == "__main__":
